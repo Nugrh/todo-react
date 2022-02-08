@@ -1,58 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { Component } from 'react';
+import TableComponent from './components/TableComponent';
+// import react router dom
+import {
+  BrowserRouter,
+  Route,
+} from "react-router-dom";
+import EditUserContainer from './containers/EditUserContainer';
+import CreateUserContainer from './containers/CreateUserContainer';
+import 'antd/dist/antd.css';
+import HomeComponent from './components/HomeComponent'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  // membuat data dummy
+  state = {
+    users: [
+      {
+        id: 1,
+        name: "nugrah",
+        age: 16
+      },
+      {
+        id: 3,
+        name: "tribima",
+        age: 15
+      },
+      {
+        id: 3,
+        name: "rohman",
+        age: 23
+      },
+    ]
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        {/* <HomeComponent users={this.state.users} /> */}
+        <HomeComponent users={this.state.users} />
+      </div>
+    );
+  }
 }
-
-export default App;
