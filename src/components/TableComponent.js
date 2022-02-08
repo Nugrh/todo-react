@@ -1,20 +1,24 @@
 import React from 'react';
-import { Table, Space, Row, Col } from 'antd';
+import { Table, Space, Row, Col, Button, Divider } from 'antd';
 import 'antd/dist/antd.css';
+import EditModal from './EditModal';
 
 const columns = [
     {
         title: 'Todo',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'todo',
+        key: 'todo',
         render: text => <a>{text}</a>,
     },
     {
         title: 'Action',
         key: 'action',
+        fixed: 'right',
+        width: 100,
         render: (text, record) => (
-            <Space size="middle">
-                <a>Change</a>
+            <Space split={<Divider type="vertical" />} size="middle">
+                <a>Done</a>
+                <EditModal />
                 <a>Delete</a>
             </Space>
         ),
@@ -25,11 +29,7 @@ const TableComponent = (props) => {
 
     return (
         <div>
-            <Row>
-                <Col span={12} offset={6}>
-                    <Table columns={columns} dataSource={props.users} />
-                </Col>
-            </Row>
+            <Table columns={columns} dataSource={props.users} />
         </div>
     )
 }
