@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Form, Input, onFinishFailed, onFinish } from 'antd';
 
 const CreateModal = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,7 +22,23 @@ const CreateModal = () => {
                 Add TODO
             </Button>
             <Modal title="Create" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>Form Input Modal</p>
+                <Form
+                    name="todo"
+                    labelCol={{ span: 5 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+                    // onFinish={onFinish}
+                    // onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Todo"
+                        name="todo"
+                        rules={[{ required: true, message: 'Please input your todo!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Form>
             </Modal>
         </>
     );

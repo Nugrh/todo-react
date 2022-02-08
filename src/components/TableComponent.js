@@ -26,7 +26,6 @@ const columns = [
 ];
 
 const TableComponent = (props) => {
-
     return (
         <div>
             <Table columns={columns} dataSource={props.users} />
