@@ -1,48 +1,80 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Input } from 'antd';
+import { Button, Modal, Form, Input, Radio } from 'antd';
+import { connect } from 'react-redux';
 
-const EditModal = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
+const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+    const [form] = Form.useForm();
     return (
-        <>
-            <Button type="primary" onClick={showModal}>
-                Edit
-            </Button>
-            <Modal title="Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <Form
-                    name="basic"
-                    labelCol={{ span: 5 }}
-                    wrapperCol={{ span: 16 }}
-                    initialValues={{ remember: true }}
-                    // onFinish={onFinish}
-                    // onFinishFailed={onFinishFailed}
-                    autoComplete="off"
+        <Modal
+            visible={visible}
+            title="Edit Todo"
+            okText="Create"
+            cancelText="Cancel"
+            onCancel={onCancel}
+            onOk={() => {
+                form
+                    .validateFields()
+                    .then((values) => {
+                        form.resetFields();
+                        onCreate(values);
+                    })
+                    .catch((info) => {
+                        console.log('Validate Failed:', info);
+                    });
+            }}
+        >
+            <Form
+                form={form}
+                layout="vertical"
+                name="form_in_modal"
+                initialValues={{
+                    modifier: 'public',
+                }}
+            >
+                <Form.Item
+                    name="todo"
+                    label="Todo"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Anda belum memasukkan todo!',
+                        },
+                    ]}
                 >
-                    <Form.Item
-                        label="Todo"
-                        name="todo"
-                        value="Someting"
-                        rules={[{ required: true, message: 'Please input your todo!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Form>
-            </Modal>
-        </>
+                    <Input />
+                </Form.Item>
+            </Form>
+        </Modal>
     );
 };
 
-export default EditModal;
+const CreateModal = () => {
+    const [visible, setVisible] = useState(false);
+
+    const onCreate = (values) => {
+        console.log('Received values of form: ', values);
+        setVisible(false);
+    };
+
+    return (
+        <div>
+            <Button
+                type="primary"
+                onClick={() => {
+                    setVisible(true);
+                }}
+            >
+                Edit
+            </Button>
+            <CollectionCreateForm
+                visible={visible}
+                onCreate={onCreate}
+                onCancel={() => {
+                    setVisible(false);
+                }}
+            />
+        </div>
+    );
+};
+
+export default connect()(CreateModal);
