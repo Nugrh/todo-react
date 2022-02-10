@@ -29,7 +29,8 @@ export const getTodosList = () => {
 
 export const postTodosCreate = (data) => {
     return (dispatch) => {
-        axios.post('https://my-json-server.typicode.com/Nugrh/reactjs-redux/todos', data)
+        axios
+            .post('https://my-json-server.typicode.com/Nugrh/reactjs-redux/todos', data)
             .then(function (response) {
                 dispatch({
                     type: POST_TODOS_CREATE,

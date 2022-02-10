@@ -16,12 +16,14 @@ const todos = (state = initialState, action) => {
                 getTodosList: action.payload.data,
                 errorTodosList: action.payload.errorMessage
             };
-
         case POST_TODOS_CREATE:
             return {
                 ...state,
                 getResposDataTodo: action.payload.data,
-                errorResposDataTodo: action.payload.errorMessage
+                errorResposDataTodo: action.payload.errorMessage,
+                initialState,
+                reducers: {}
+
             };
         default:
             return state;

@@ -4,6 +4,7 @@ import CreateModal from './CreateModal';
 import TableComponent from './TableComponent';
 import { getTodosList } from '../actions/TodoAction';
 import { connect } from 'react-redux';
+import FormCreate from './FormCreate';
 
 class HomeComponent extends Component {
     componentDidMount() {
@@ -11,7 +12,7 @@ class HomeComponent extends Component {
     }
 
     handleSubmit(data) {
-        console.log("data")
+        console.log("asuuu" + data)
     }
 
     render() {
@@ -19,7 +20,7 @@ class HomeComponent extends Component {
             <div>
                 <Row>
                     <Col span={16} offset={4}>
-                        <CreateModal onSubmit={(data) => this.handleSubmit} />
+                        <CreateModal />
                         <TableComponent />
                     </Col>
                 </Row>

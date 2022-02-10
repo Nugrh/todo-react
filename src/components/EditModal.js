@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
+
     return (
         <Modal
             visible={visible}
@@ -13,6 +14,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
             onCancel={onCancel}
             onOk={() => {
                 form
+
                     .validateFields()
                     .then((values) => {
                         form.resetFields();

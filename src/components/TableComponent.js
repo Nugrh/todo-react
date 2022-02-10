@@ -29,11 +29,7 @@ const columns = [
 ];
 
 
-
-
 const TableComponent = (props) => {
-
-
     return (
         <div>
 
