@@ -1,82 +1,56 @@
-import React, { useState } from 'react';
-import { Button, Modal, Form, Input, Radio } from 'antd';
-import { connect } from 'react-redux';
-
-const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
-    const [form] = Form.useForm();
-
-    return (
-        <Modal
-            visible={visible}
-            title="Edit Todo"
-            okText="Create"
-            cancelText="Cancel"
-            onCancel={onCancel}
-            onOk={() => {
-                form
-
-                    .validateFields()
-                    .then((values) => {
-                        form.resetFields();
-                        onCreate(values);
-                    })
-                    .catch((info) => {
-                        console.log('Validate Failed:', info);
-                    });
-            }}
-        >
-            <Form
-                form={form}
-                layout="vertical"
-                name="form_in_modal"
-                initialValues={{
-                    modifier: 'public',
-                }}
-            >
-                <Form.Item
-                    name="todo"
-                    label="Todo"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Anda belum memasukkan todo!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-            </Form>
-        </Modal>
-    );
-};
+import React, { useState } from "react";
+import { Modal, Button, Input } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "../features/Todos";
 
 const CreateModal = () => {
-    const [visible, setVisible] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const onCreate = (values) => {
-        console.log('Received values of form: ', values);
-        setVisible(false);
+    const showModal = () => {
+        setIsModalVisible(true);
     };
 
+    const handleOk = () => {
+        dispatch(
+            addTodo({
+                id: todoList[todoList.length - 1].id + 1,
+                todo,
+            })
+        );
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    const dispatch = useDispatch();
+    const todoList = useSelector((state) => state.todos.value);
+    const [todo, setTodo] = useState("");
+
     return (
-        <div>
-            <Button
-                type="primary"
-                onClick={() => {
-                    setVisible(true);
-                }}
+        <>
+            <a onClick={showModal}>Edit</a>
+            <Modal
+                title="Edit"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={[
+                    <Button onClick={handleOk}>OK</Button>,
+                    <Button onClick={handleCancel}>Cancel</Button>,
+                ]}
             >
-                Edit
-            </Button>
-            <CollectionCreateForm
-                visible={visible}
-                onCreate={onCreate}
-                onCancel={() => {
-                    setVisible(false);
-                }}
-            />
-        </div>
+                <div>
+                    <Input
+                        type="text"
+                        placeholder="Edit Todo..."
+                        onChange={(event) => {
+                            setTodo(event.target.value);
+                        }}
+                    />
+                </div>
+            </Modal>
+        </>
     );
 };
 
-export default connect()(CreateModal);
+export default CreateModal;

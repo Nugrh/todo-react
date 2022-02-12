@@ -1,33 +1,19 @@
-import React, { Component } from 'react';
-import 'antd/dist/antd.css';
-import HomeComponent from './components/HomeComponent'
+import React, { Component } from "react";
+import "antd/dist/antd.less";
+import HomeComponent from "./components/HomeComponent";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Row, Col } from "antd";
 
 export default class App extends Component {
-  // membuat data dummy
-  // state = {
-  //   users: [
-  //     {
-  //       id: 1,
-  //       todo: "Nonton Tutor CRUD Redux",
-  //     },
-  //     {
-  //       id: 3,
-  //       todo: "Tugas 2",
-  //     },
-  //     {
-  //       id: 3,
-  //       todo: "Tugas 3",
-  //     },
-  //   ]
-  // }
-  // state dimasukkan ke "reducers/index.js"
-
-  render() {
-    return (
-      <div className='App'>
-        {/* <HomeComponent users={this.state.users} /> */}
-        <HomeComponent />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <Row>
+                    <Col span={16} offset={4}>
+                        <HomeComponent style={{ color: "#fafafa" }} />
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
 }

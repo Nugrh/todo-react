@@ -1,46 +1,60 @@
-import { Modal, Button } from 'antd';
-import FormCreate from './FormCreate';
-import React from 'react';
+import React, { useState } from "react";
+import { Modal, Button, Input } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "../features/Todos";
 
-class CreateModal extends React.Component {
-    state = {
-        loading: false,
-        visible: false,
+const CreateModal = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
     };
 
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    handleCancel = () => {
-        this.setState({ visible: false });
-    };
-
-    handleSubmit = (data) => {
-        console.log("handle submit: ", data);
-    };
-
-    render() {
-        const { visible, loading } = this.state;
-        return (
-            <>
-                <Button type="primary" onClick={this.showModal}>
-                    Open Modal with customized footer
-                </Button>
-                <Modal
-                    visible={visible}
-                    title="Title"
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                    footer={''}
-                >
-                    <FormCreate onSubmit={(data) => this.handleSubmit(data)} />
-                </Modal>
-            </>
+    const handleOk = () => {
+        dispatch(
+            addTodo({
+                id: todoList[todoList.length - 1].id + 1,
+                todo,
+            })
         );
-    }
-}
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    const dispatch = useDispatch();
+    const todoList = useSelector((state) => state.todos.value);
+    const [todo, setTodo] = useState("");
+
+    return (
+        <>
+            <Button type="primary" onClick={showModal}>
+                Tambah Todo
+            </Button>
+            <Modal
+                title="Tambah"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={[
+                    <Button onClick={handleOk} form="create-form">
+                        OK
+                    </Button>,
+                    <Button onClick={handleCancel}>Cancel</Button>,
+                ]}
+            >
+                <div>
+                    <Input
+                        type="text"
+                        placeholder="Masukkan Todo..."
+                        onChange={(event) => {
+                            setTodo(event.target.value);
+                        }}
+                    />
+                </div>
+            </Modal>
+        </>
+    );
+};
 
 export default CreateModal;
