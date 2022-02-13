@@ -1,55 +1,79 @@
 import React, { useState } from "react";
-import { Modal, Button, Input } from "antd";
+import { Modal, Input, Form, Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo } from "../features/Todos";
 
 const CreateModal = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const dispatch = useDispatch();
+    const todoList = useSelector((state) => state.todos.value);
+    const [todo, setTodo] = useState("");
+
+    // function untuk menampilkan modal
     const showModal = () => {
-        setIsModalVisible(true);
+        setIsModalVisible(true); // tampilkan modal = true
     };
 
+    // function ketika tombol dipencet "OK"
     const handleOk = () => {
+        // menambahkan todo
         dispatch(
             addTodo({
                 id: todoList[todoList.length - 1].id + 1,
                 todo,
             })
         );
+        // modal akan hilang setelah dipencet "OK"
         setIsModalVisible(false);
     };
 
+    // function untuk membatalkan / keluar dari modal
     const handleCancel = () => {
-        setIsModalVisible(false);
+        setIsModalVisible(false); // tampilkan modal = false
     };
-    const dispatch = useDispatch();
-    const todoList = useSelector((state) => state.todos.value);
-    const [todo, setTodo] = useState("");
 
     return (
-        <>
+        <>                                  
+                        {/* function modal yang ada di baris kode ke 14 */}
+                                            {/* | */}
+                                            {/* V */}
             <Button type="primary" onClick={showModal}>
+                                  {/* ^ */}
+                                  {/* | */}
+                    {/* lakukan sesuatu ketika di klik */} 
+
                 Tambah Todo
             </Button>
             <Modal
-                title="Tambah"
-                visible={isModalVisible}
-                onCancel={handleCancel}
+                title="Tambah" // Header untuk modal
+                visible={isModalVisible} 
+                onCancel={handleCancel} // jika tombol cancel di tekan, maka panggil function di baris kode 32
                 footer={[
-                    <Button onClick={handleOk} form="create-form">
+                    <Button
+                        onClick={handleOk} // ketika di klik, maka panggil function di baris ke 19
+                        form="form-create"
+                        form="myForm"
+                        key="submit"
+                        htmlType="submit"
+                    >
                         OK
                     </Button>,
                     <Button onClick={handleCancel}>Cancel</Button>,
+                    //                    ^
+                    //                    |
+                    // panggil function baris kode ke 32 jika tombol dipencet
+
                 ]}
             >
                 <div>
                     <Input
-                        type="text"
-                        placeholder="Masukkan Todo..."
+                        name="todo"
                         onChange={(event) => {
                             setTodo(event.target.value);
                         }}
+                        required
+                        placeholder="Tambah Todo..."
                     />
                 </div>
             </Modal>
