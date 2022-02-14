@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Space, Divider, Popconfirm } from "antd";
 import "antd/dist/antd.css";
 import EditModal from "./EditModal";
@@ -6,6 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteTodo } from "../features/Todos";
 
 const TableComponent = (props) => {
+    // TODO: pass data id to <EditModal />
+
+    const [todoId, setTodoId] = useState("");
+
+    const getTodoId = (id) => {
+        setTodoId = id;
+    };
+    z
     const dispatch = useDispatch();
     const todoList = useSelector((state) => state.todos.value);
 
@@ -18,24 +26,29 @@ const TableComponent = (props) => {
         },
         {
             title: "ACTION",
-            key: "action",
+            dataIndex: "id",
+            key: "id",
             fixed: "right",
             width: 100,
-            render: (text, record) => (
+            render: (id) => [
                 <Space split={<Divider type="vertical" />} size="middle">
                     <a>Done</a>
-                    <EditModal />
 
+                    {/* EDIT DATA MODAL */}
+                    <EditModal todoId={id} />
+                    {/* todoId={id} untuk mengirim data ID untuk edit data */}
+
+                    {/* DELETE DATA */}
                     <Popconfirm
                         title="Sure to delete?"
                         onConfirm={() => {
-                            dispatch(deleteTodo({ id: 2 }));
+                            dispatch(deleteTodo({ id: id }));
                         }}
                     >
                         <a>Delete</a>
                     </Popconfirm>
-                </Space>
-            ),
+                </Space>,
+            ],
         },
     ];
 
