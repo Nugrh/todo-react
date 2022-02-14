@@ -8,14 +8,13 @@ import { deleteTodo } from "../features/Todos";
 const TableComponent = (props) => {
     // TODO: pass data id to <EditModal />
 
+    const dispatch = useDispatch();
+    const todoList = useSelector((state) => state.todos.value);
     const [todoId, setTodoId] = useState("");
 
     const getTodoId = (id) => {
         setTodoId = id;
     };
-    z
-    const dispatch = useDispatch();
-    const todoList = useSelector((state) => state.todos.value);
 
     const columns = [
         {
@@ -36,7 +35,7 @@ const TableComponent = (props) => {
 
                     {/* EDIT DATA MODAL */}
                     <EditModal todoId={id} />
-                    {/* todoId={id} untuk mengirim data ID untuk edit data */}
+                    {/* todoId={id} untuk mengirim data ID untuk edit */}
 
                     {/* DELETE DATA */}
                     <Popconfirm
