@@ -34,27 +34,26 @@ const CreateModal = () => {
     };
 
     return (
-        <>                                  
-                        {/* function modal yang ada di baris kode ke 14 */}
-                                            {/* | */}
-                                            {/* V */}
+        <>
+            {/* function modal yang ada di baris kode ke 14 */}
+            {/* | */}
+            {/* V */}
             <Button type="primary" onClick={showModal}>
-                                  {/* ^ */}
-                                  {/* | */}
-                    {/* lakukan sesuatu ketika di klik */} 
+                {/* ^ */}
+                {/* | */}
+                {/* lakukan sesuatu ketika di klik */}
 
                 Tambah Todo
             </Button>
+
+            {/* MODAL */}
             <Modal
                 title="Tambah" // Header untuk modal
-                visible={isModalVisible} 
+                visible={isModalVisible} // biar modal nampil
                 onCancel={handleCancel} // jika tombol cancel di tekan, maka panggil function di baris kode 32
                 footer={[
                     <Button
                         onClick={handleOk} // ketika di klik, maka panggil function di baris ke 19
-                        form="form-create"
-                        form="myForm"
-                        key="submit"
                         htmlType="submit"
                     >
                         OK

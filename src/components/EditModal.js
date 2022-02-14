@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Modal, Button, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "../features/Todos";
+import { updateTodo } from "../features/Todos";
 
-const CreateModal = () => {
+const CreateModal = (todoId) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const dispatch = useDispatch();
+    const [newTodo, setNewTodo] = useState("");
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -12,20 +14,18 @@ const CreateModal = () => {
 
     const handleOk = () => {
         dispatch(
-            addTodo({
-                id: todoList[todoList.length - 1].id + 1,
-                todo,
+            updateTodo({
+                id: todoId,
+                todo: newTodo,
             })
         );
+        console.log("ID: ", todoId, " Todo: ", newTodo);
         setIsModalVisible(false);
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    const dispatch = useDispatch();
-    const todoList = useSelector((state) => state.todos.value);
-    const [todo, setTodo] = useState("");
 
     return (
         <>
@@ -40,11 +40,12 @@ const CreateModal = () => {
                 ]}
             >
                 <div>
+                    {/* <p>{this.props.todoId}</p> */}
                     <Input
                         type="text"
                         placeholder="Edit Todo..."
                         onChange={(event) => {
-                            setTodo(event.target.value);
+                            setNewTodo(event.target.value);
                         }}
                     />
                 </div>
