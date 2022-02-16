@@ -3,24 +3,19 @@ import { Modal, Button, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTodo } from "../features/Todos";
 
-const CreateModal = (todoId) => {
+const CreateModal = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const dispatch = useDispatch();
     const [newTodo, setNewTodo] = useState("");
+    //        ^         ^
+    //        |         |
+    //        |         L-------------------------------variabel untuk menampung data dari input yang ada di bawah
+    //        |         
+    // variabel yang menyimpan todo yang baru 
+
 
     const showModal = () => {
         setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        dispatch(
-            updateTodo({
-                id: todoId,
-                todo: newTodo,
-            })
-        );
-        console.log("ID: ", todoId, " Todo: ", newTodo);
-        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
@@ -35,17 +30,27 @@ const CreateModal = (todoId) => {
                 visible={isModalVisible}
                 onCancel={handleCancel}
                 footer={[
-                    <Button onClick={handleOk}>OK</Button>,
+                    <Button onClick={() => {
+                        dispatch(
+                            updateTodo({
+                                id: 1, // (sementara pake id yang ada, jadi klo id=1, todo ke-1 akan terubah) ngambil id dari tabel
+                                todo: newTodo, // todo yang dari input
+                            })
+                        );
+                        setIsModalVisible(false);
+
+                    }
+
+                    }>OK</Button>,
                     <Button onClick={handleCancel}>Cancel</Button>,
                 ]}
             >
                 <div>
-                    {/* <p>{this.props.todoId}</p> */}
                     <Input
                         type="text"
                         placeholder="Edit Todo..."
                         onChange={(event) => {
-                            setNewTodo(event.target.value);
+                            setNewTodo(event.target.value); // menyimpan data input untuk baris ke 9(setNewTodo)
                         }}
                     />
                 </div>
