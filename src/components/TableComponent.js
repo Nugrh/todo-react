@@ -1,41 +1,16 @@
 import React, { useState } from "react";
-import { Table, Space, Divider, Popconfirm, Button, Modal, Input } from "antd";
+import { Table, Space, Divider, Popconfirm } from "antd";
 import "antd/dist/antd.css";
+import EditModal from "./EditModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, updateTodo } from "../features/Todos";
+import { deleteTodo } from "../features/Todos";
 
 const TableComponent = (props) => {
+    // TODO: pass data id to <EditModal />
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const showModal = (id) => {
-
-        setIsModalVisible(true);
-        return (
-            editModal(id)
-        )
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-    //                            default value
-    //                                  |
-    //                                  V
-    const [newTodo, setNewTodo] = useState("");
-    //        ^         ^             
-    //        |         |             
-    //        |         L-----------------------variabel untuk menampung data dari input yang ada di bawah
-    //        |         
-    // variabel yang menyimpan todo yang baru
     const dispatch = useDispatch();
     const todoList = useSelector((state) => state.todos.value);
 
-
-    // const columns adalah header dari tabel yang isinya ada di dalam ini
     const columns = [
         {
             title: "TODO",
@@ -49,77 +24,31 @@ const TableComponent = (props) => {
             key: "id",
             fixed: "right",
             width: 100,
-            render: (rows, record) => (
+            render: (rows, record) => [
                 <Space split={<Divider type="vertical" />} size="middle">
                     <a>Done</a>
 
-                    {/* EDIT DATA MODAL----------------------------------------------------------------- */}
-                    <div>
-                        <Button type="primary" onClick={
-                            () =>
-                                showModal(rows)
-                        }>
-                            ID: {rows}
-                        </Button>
-                        {editModal()}
-                    </div>
-
-                    {/* <editModal id={rows} /> */}
-                    {/* EDIT DATA MODAL----------------------------------------------------------------- */}
-
+                    {/* EDIT DATA MODAL */}
+                    <EditModal id={rows} />
+                    {/* id={id} untuk mengirim data ID untuk parameter function di EditModal component */}
 
                     {/* DELETE DATA */}
-                    < Popconfirm
-                        title="Sure to delete?"
+                    <Popconfirm // popup konfirmasi yakin hapus data?
+                        title="?"
                         onConfirm={() => {
                             dispatch(deleteTodo({ id: rows }));
                         }}
                     >
                         <a>Delete</a>
-                    </Popconfirm >
-                </Space >
-            ),
+                    </Popconfirm>
+                </Space>,
+            ],
         },
     ];
 
-    const editModal = (id) => {
-        { console.log("ID: ", id) }
-        { console.log("Todo: ", newTodo) }
-        return (
-            < Modal title={id} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={
-                [
-                    <Button onClick={() => {
-                        dispatch(
-                            updateTodo({
-                                id: id, // ngambil id dari tabel
-                                todo: newTodo, // todo yang dari input
-                            })
-                        );
-                        setIsModalVisible(false);
-                    }
-
-                    }>OK {id}</Button>,
-                    <Button onClick={handleCancel}>Cancel</Button>,
-
-                ]} >
-                <p>ID:</p>
-
-
-                <Input
-                    type="text"
-                    placeholder="Edit Todo..."
-                    onChange={(event) => {
-                        setNewTodo(event.target.value); // menyimpan data input untuk baris ke 9(setNewTodo)
-                    }}
-                />
-            </Modal >
-        )
-    }
-
     return (
         <div style={{ marginTop: 12 }}>
-
-            <Table columns={columns} dataSource={todoList} />
+            <Table columns={columns} dataSource={todoList} rowKey="id" />
         </div>
     );
 };
