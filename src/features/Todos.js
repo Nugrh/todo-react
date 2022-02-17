@@ -22,10 +22,10 @@ export const todoSlice = createSlice({
 
         // membuat function { deleteTodo } untuk di eksport ke "todo/src/components/TableComponent.js/" untuk menghapus data
         updateTodo: (state, action) => {
-            // aksi dimana data akan di filter
+            // ngeloop data
             state.value.map((todo) => {
-                if (todo.id === action.payload.id) {
-                    todo.todo = action.payload.todo;
+                if (todo.id === action.payload.id) { // jika todo id dari FakeData.js sama dengan todo id yang dikirim dari TableComponent maka:
+                    todo.todo = action.payload.todo; // todo = input todo yang di input sebelumnya
                 }
             });
         },

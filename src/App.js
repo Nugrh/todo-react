@@ -10,7 +10,7 @@ export default class App extends Component {
             <div className="App">
                 <Row>
                     <Col span={16} offset={4}>
-                        <HomeComponent style={{ color: "#fafafa" }} />
+                        <HomeComponent />
                     </Col>
                 </Row>
             </div>

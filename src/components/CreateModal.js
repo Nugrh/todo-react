@@ -35,13 +35,13 @@ const CreateModal = () => {
 
     return (
         <>
-            {/* function modal yang ada di baris kode ke 14 */}
-            {/* | */}
-            {/* V */}
+            {/*            function modal yang ada di baris kode ke 14  */}
+            {/*                                 |                       */}
+            {/*                                 V                       */}
             <Button type="primary" onClick={showModal}>
-                {/* ^ */}
-                {/* | */}
-                {/* lakukan sesuatu ketika di klik */}
+                {/*                    ^                    */}
+                {/*                    |                    */}
+                {/*        lakukan sesuatu ketika di klik   */}
 
                 Tambah Todo
             </Button>
@@ -66,12 +66,14 @@ const CreateModal = () => {
                 ]}
             >
                 <div>
+                    {console.log(todo)}
                     <Input
                         name="todo"
                         onChange={(event) => {
                             setTodo(event.target.value);
                         }}
                         required
+                        autoComplete="off"
                         placeholder="Tambah Todo..."
                     />
                 </div>
