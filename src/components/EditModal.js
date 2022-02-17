@@ -3,60 +3,54 @@ import { Modal, Button, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTodo } from "../features/Todos";
 
-const CreateModal = () => {
+const EditModal = (id) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const dispatch = useDispatch();
-    const [newTodo, setNewTodo] = useState("");
-    //        ^         ^
-    //        |         |
-    //        |         L-------------------------------variabel untuk menampung data dari input yang ada di bawah
-    //        |         
-    // variabel yang menyimpan todo yang baru 
 
 
-    const showModal = () => {
-        setIsModalVisible(true);
+
+    const handleOk = () => {
+        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
-    };
+    }; const dispatch = useDispatch();
+    //                            default value
+    //                                  |
+    //                                  V
+    const [newTodo, setNewTodo] = useState("");
+    //        ^         ^             
+    //        |         |             
+    //        |         L-----------------------variabel untuk menampung data dari input yang ada di bawah
+    //        |         
+    // variabel yang menyimpan todo yang baru
 
     return (
         <>
-            <a onClick={showModal}>Edit</a>
-            <Modal
-                title="Edit"
-                visible={isModalVisible}
-                onCancel={handleCancel}
-                footer={[
-                    <Button onClick={() => {
-                        dispatch(
-                            updateTodo({
-                                id: 1, // (sementara pake id yang ada, jadi klo id=1, todo ke-1 akan terubah) ngambil id dari tabel
-                                todo: newTodo, // todo yang dari input
-                            })
-                        );
-                        setIsModalVisible(false);
-
-                    }
-
-                    }>OK</Button>,
-                    <Button onClick={handleCancel}>Cancel</Button>,
-                ]}
-            >
-                <div>
-                    <Input
-                        type="text"
-                        placeholder="Edit Todo..."
-                        onChange={(event) => {
-                            setNewTodo(event.target.value); // menyimpan data input untuk baris ke 9(setNewTodo)
-                        }}
-                    />
-                </div>
+            <Modal title={id} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={[
+                <Button onClick={() => {
+                    dispatch(
+                        updateTodo({
+                            id: id, // ngambil id dari tabel
+                            todo: newTodo, // todo yang dari input
+                        })
+                    );
+                    setIsModalVisible(false);
+                }
+                }>OK {id}</Button>,
+                <Button onClick={handleCancel}>Cancel</Button>,
+            ]}>
+                <p>ID: {id}</p>
+                <Input
+                    type="text"
+                    placeholder="Edit Todo..."
+                    onChange={(event) => {
+                        setNewTodo(event.target.value); // menyimpan data input untuk baris ke 9(setNewTodo)
+                    }}
+                />
             </Modal>
         </>
     );
 };
 
-export default CreateModal;
+export default EditModal;
