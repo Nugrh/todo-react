@@ -4,7 +4,9 @@ import { TodosData } from "../FakeData"; // mengambil data "mainan" dari "todo/s
 export const todoSlice = createSlice({
   // function untuk di ekspor ke "todo/src/components/TableComponents"
   name: "todos",
-  initialState: { value: TodosData }, // lupa buat apaan
+  initialState: {
+    value: []
+  }, // lupa buat apaan
   reducers: {
     // membuat function { addTodo } untuk di eksport ke "todo/src/components/CreateModal.js/"
     addTodo: (state, action) => {
