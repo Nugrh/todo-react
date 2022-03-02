@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateTodo } from "../../../features/Todos";
+import { updateTask } from "../../../features/Todos";
 import EditForm from "./Form/EditForm";
 
 const EditModal = ({ id, todo }) => {
@@ -8,11 +8,12 @@ const EditModal = ({ id, todo }) => {
     const [visible, setVisible] = useState(false);
 
     const onUpdate = (values) => {
-        console.log('Received values of form: ', values);
+      console.log('Received values of form: ', values);
+      console.log('Received id: ', id);
         dispatch(
-            updateTodo({
+            updateTask({
                 id: id,
-                todo: values.newTodo,
+                task: values.newTask,
             })
         );
         setVisible(false);

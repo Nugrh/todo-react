@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "../../../features/Todos";
+import { addTask } from "../../../features/Todos";
 import CreateForm from "./Form/CreateForm";
 
 const CreateModal = () => {
@@ -9,13 +9,12 @@ const CreateModal = () => {
 
     const [visible, setVisible] = useState(false);
 
-
     const onCreate = (values) => {
         console.log('Received values of form: ', values);
         dispatch(
-            addTodo({
+            addTask({
                 id: Math.floor(Math.random() * 99999999),
-                todo: values.todo,
+                task: values.task,
             })
         );
         setVisible(false);

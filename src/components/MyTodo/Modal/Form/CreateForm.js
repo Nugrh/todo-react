@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Input, Button, Form, message } from "antd";
+import React  from "react";
+import { Modal, Input, Form, message } from "antd";
 
 const CreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
@@ -33,11 +33,11 @@ const CreateForm = ({ visible, onCreate, onCancel }) => {
                 }}
             >
                 <Form.Item
-                    name="todo"
+                    name="task"
                     rules={[
                         {
                             required: true,
-                            message: 'Todo cannot be empty!',
+                            message: 'Task cannot be empty!',
                         },
                     ]}
                 >

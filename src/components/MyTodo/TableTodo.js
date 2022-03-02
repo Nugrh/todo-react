@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Space, Divider, Popconfirm, message } from "antd";
 import EditModal from "./Modal/EditModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo } from "../../features/Todos";
+import { deleteTask } from "../../features/Todos";
 import CreateModal from "./Modal/CreateModal";
 
 const TableTodo = () => {
@@ -12,8 +12,8 @@ const TableTodo = () => {
     const columns = [
         {
             title: "Task",
-            dataIndex: "todo",
-            key: "todo",
+            dataIndex: "task",
+            key: "task",
             render: (text) => <div>{text}</div>,
         },
         {
@@ -21,10 +21,9 @@ const TableTodo = () => {
             dataIndex: "id",
             key: "id",
             fixed: "right",
-            width: 100,
+            width: 256,
             render: (rows, record) => [
                 <Space split={<Divider type="vertical" />} size="middle">
-                    {/* DONE CHECKBOX */}
                     <a>Done</a>
 
                     {/* EDIT DATA MODAL */}
@@ -35,12 +34,12 @@ const TableTodo = () => {
                     <Popconfirm // popup konfirmasi yakin hapus data?
                         title="Sure to delete this task?"
                         onConfirm={() => {
-                            // manggil function redux deleteTodo di "../features/Todos"
-                            dispatch(deleteTodo({ id: rows }));
+                            // manggil function redux deleteTask di "../features/Todos"
+                            dispatch(deleteTask({ id: rows }));
                             message.success('Task deleted');
                         }}
                     >
-                        <a>Delete</a>
+                        <a >Delete</a>
                     </Popconfirm>
                 </Space>
             ],
@@ -50,7 +49,7 @@ const TableTodo = () => {
     return (
         <div>
             <CreateModal />
-            <Table columns={columns} dataSource={tasks} pagination={{ defaultPageSize: 5 }} />
+            <Table columns={columns} dataSource={tasks} />
         </div>
     );
 };

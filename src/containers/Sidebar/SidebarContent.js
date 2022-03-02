@@ -1,5 +1,5 @@
 import React from "react";
-import {Menu} from "antd";
+import { Menu } from "antd";
 import {Link} from "react-router-dom";
 
 import CustomScrollbars from "util/CustomScrollbars";
@@ -48,13 +48,15 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                 <span><IntlMessages id="sidebar.samplePage"/></span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="test">
-              <Link to="/test"><i className="icon icon-widgets"/>
-                <span>Test Page</span>
+            <Menu.Item key="todo">
+              <Link to="/todo"><i className="icon icon-check-square-o"/>
+                <span>Todo App</span>
               </Link>
             </Menu.Item>
           </Menu>
         </CustomScrollbars>
+
+
       </div>
     </>
   );

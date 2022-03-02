@@ -1,7 +1,6 @@
 import { Card } from "antd";
 import React from "react";
 import TableTodo from "./TableTodo";
-import CreateModal from "./Modal/CreateModal";
 
 const MyTodo = () => {
     return (

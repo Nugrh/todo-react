@@ -36,7 +36,7 @@ const EditForm = ({ visible, onUpdate, onCancel, todo }) => {
 
             >
                 <Form.Item
-                    name="newTodo"
+                    name="newTask"
                     rules={[
                         {
                             required: true,
