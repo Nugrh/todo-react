@@ -1,15 +1,18 @@
 import React, {useState} from "react";
-import {Layout, Popover} from "antd";
-import {Link} from "react-router-dom";
+import {Layout, Popover } from "antd";
+import {Switch as SwitchAntd} from "antd";
+import {Link, Switch} from "react-router-dom";
 
 import CustomScrollbars from "util/CustomScrollbars";
 import languageData from "./languageData";
-import {switchLanguage, toggleCollapsedSideNav} from "../../appRedux/actions";
+import {setThemeColor, setThemeType, switchLanguage, toggleCollapsedSideNav} from "../../appRedux/actions";
 import SearchBox from "../../components/SearchBox";
 import UserInfo from "../../components/UserInfo";
 import AppNotification from "../../components/AppNotification";
 import MailNotification from "../../components/MailNotification";
 import Auxiliary from "util/Auxiliary";
+
+import {THEME_TYPE, THEME_TYPE_DARK, THEME_TYPE_SEMI_DARK} from "../../constants/ThemeSetting";
 
 
 import {NAV_STYLE_DRAWER, NAV_STYLE_FIXED, NAV_STYLE_MINI_SIDEBAR, TAB_SIZE} from "../../constants/ThemeSetting";
@@ -42,6 +45,14 @@ const Topbar = () => {
   const updateSearchChatUser = (evt) => {
     setSearchText(evt.target.value);
   };
+
+  const onChange = (checked) => {
+    console.log(`switch to ${checked}`);
+    dispatch(setThemeType(THEME_TYPE_DARK))
+    if (checked === false){
+      dispatch(setThemeType(THEME_TYPE_SEMI_DARK))
+    }
+  }
 
   return (
     <Header>
@@ -89,8 +100,14 @@ const Topbar = () => {
                   </span>
               </Popover>
             </li>
+
           </Auxiliary>
+
         }
+        <li>
+          <SwitchAntd onChange={onChange} />
+        </li>
+
         <li className="gx-language">
           <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={languageMenu()}
                    trigger="click">
