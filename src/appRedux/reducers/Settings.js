@@ -6,7 +6,6 @@ import {
   NAV_STYLE_FIXED,
   THEME_COLOR,
   THEME_TYPE,
-  THEME_TYPE_DARK,
   THEME_TYPE_SEMI_DARK,
   UPDATE_RTL_STATUS
 } from "../../constants/ThemeSetting";
