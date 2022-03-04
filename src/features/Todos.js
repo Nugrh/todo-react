@@ -3,7 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const todoSlice = createSlice({
   // function untuk di ekspor ke "todo/src/components/TableComponents"
   name: "todos",
-  initialState: { value: [] }, // lupa buat apaan
+  initialState: {
+    value: [
+      { id: 1, task: "Tugas 1", completed: false },
+      { id: 2, task: "Meeting 1", completed: true },
+      { id: 3, task: "Tugas 2", completed: false },
+      { id: 4, task: "Tugas 3", completed: false },
+    ],
+  }, // lupa buat apaan
   reducers: {
     // membuat function { addTodo } untuk di eksport ke "todo/src/components/CreateModal.js/"
     addTask: (state, action) => {
@@ -22,14 +29,26 @@ export const todoSlice = createSlice({
     // membuat function { deleteTask } untuk di eksport ke "todo/src/components/TableTodo.js/" untuk menghapus data
     updateTask: (state, action) => {
       // ngeloop data
-      state.value.map((todo) => {
-        if (todo.id === action.payload.id) { // jika todo id dari FakeData.js sama dengan todo id yang dikirim dari TableTodo maka:
-          todo.todo = action.payload.todo; // todo = input todo yang di input sebelumnya
+      state.value.map((task) => {
+        if (task.id === action.payload.id) {
+          // jika task id dari FakeData.js sama dengan task id yang dikirim dari TableTodo maka:
+          task.task = action.payload.task; // task = input todo yang di input sebelumnya
+        }
+      });
+    },
+
+    completeTask: (state, action) => {
+      // ngeloop data
+      state.value.map((task) => {
+        if (task.id === action.payload.id) {
+          // jika task id dari FakeData.js sama dengan task id yang dikirim dari TableTodo maka:
+          task.completed = action.payload.completed; // task = input todo yang di input sebelumnya
         }
       });
     },
   },
 });
 
-export const { addTask, deleteTask, updateTask } = todoSlice.actions;
+export const { addTask, deleteTask, updateTask, completeTask } =
+  todoSlice.actions;
 export default todoSlice.reducer;
